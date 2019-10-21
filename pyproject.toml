@@ -6,9 +6,9 @@ authors = ["John Duprey <297628+jduprey@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
 
-homepage = "https://www.iduprey.com/"
+homepage = "https://github.com/jduprey/mktimeline"
 repository = "https://github.com/jduprey/mktimeline"
-documentation = "https://../docs"
+documentation = "https://github.com/jduprey/mktimeline/blob/master/README.md"
 
 keywords = ["timeline", "edit", "author"]
 
