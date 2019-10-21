@@ -1,0 +1,194 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>{{title.text.headline}}</title>
+  <meta name="description" content="{{title.text.text}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!--           -->
+
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link title="timeline-styles" rel="stylesheet"
+    href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="stylesheet" href="css/custombs.css">
+  <link rel="stylesheet" href="css/timeline.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="d-flex flex-column h-100">
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">AI@TR Timeline Demo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="./">Interactive <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Non-Interactive</a>
+          </li>
+          <!--li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li-->
+        </ul>
+        <!--form class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form-->
+      </div>
+    </nav>
+  </header>
+
+  <!-- Begin page content -->
+
+  <!-- Via https://codepen.io/bsngr/pen/Ifvbi -->
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="pb-2 mt-4 mb-2 border-bottom">
+          <h1 id="timeline">{{title.text.headline|safe}}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <figure class="figure">
+            {% if title.media is defined and title.media.url|length > 0 %}
+                {% if title.media.url.lower().endswith((".jpg", ".jpeg", ".png")) %}
+                  <img src="{{title.media.url}}" class="figure-img img-fluid rounded " alt="{{title.media.caption}}">
+                {% elif title.media.url.lower().find("youtube") != -1 %}
+                  <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="{{title.media.url}}" allowfullscreen></iframe>
+                  </div>
+                {% elif title.media.url|length > 0 %}
+                <div class="embed-responsive embed-responsive-16by9">
+                  <video class="embed-responsive-item" controls src="{{title.media.url}}">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                {% endif %}
+            {% endif %}
+            <figcaption class="figure-caption">{{title.text.text|safe}}</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <ul class="timeline">
+            {% for event in events %}
+              <li class="{{ loop.cycle('', 'timeline-inverted') }} group-{{event.group}}">
+                <div class="timeline-badge info"><i class="fa fa-calendar"></i></div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <a name="{{event.text.headline}}"></a>
+                    <h4 class="timeline-title">{{event.text.headline|safe}}</h4>
+                    <p>
+                      <a class="fa fa-anchor pull-right" href="#{{event.text.headline}}"></a>
+                      <small class="text-muted"><i class="fa fa-calendar"></i> {{event.start_date.year}}</small>
+                    </p>
+                  </div>
+                  <div class="timeline-body">
+
+                    {% if event.media is defined and event.media.url|length > 0 %}
+                      <figure class="figure">
+                        {% if event.media.url.lower().endswith((".jpg", ".jpeg", ".png")) %}
+                          <img src="{{event.media.url}}" class="figure-img img-fluid rounded " alt="{{event.media.caption}}">
+                        {% elif event.media.url.lower().find("youtube") != -1 %}
+                          <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="{{event.media.url}}" allowfullscreen></iframe>
+                          </div>
+                        {% elif event.media.url|length > 0 %}
+                        <div class="embed-responsive embed-responsive-16by9">
+                          <video class="embed-responsive-item" controls src="{{event.media.url}}">
+                            Your browser does not support the video tag.
+                          </video>
+                        </div>
+                        {% endif %}
+                        {% if event.media.caption and event.media.caption|length > 0 %}
+                          <figcaption class="figure-caption">
+                            <small>{{event.media.caption|safe}} | {{event.media.credit|safe}}</small>
+                          </figcaption>
+                        {% endif %}
+                      </figure>
+                    {% endif %}
+
+                    <div>
+                      {{event.text.text|safe}}
+                      <span class="pull-right">{% if event.group %} <span class="badge badge-pill badge-dark">{{event.group}}</span>{% endif %}</span>
+                    </div>
+
+                  </div>
+                </div>
+              </li>
+            {% else %}
+              <li>No Events!!!</li>
+            {% endfor %}
+        </ul>
+      </div>
+    </div>
+    </div>
+  </main>
+
+
+  <script src="js/vendor/modernizr-3.7.1.min.js"></script>
+  <!-- script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+    window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')
+  </script-->
+
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!--           -->
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () {
+      ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('set', 'transport', 'beacon');
+    ga('send', 'pageview')
+
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
