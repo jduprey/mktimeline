@@ -23,11 +23,11 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-cleo = "^0.7.5"
+cleo = "^0.8.1"
 bs4 = "^0.0.1"
-frontmatter = "^3.0"
-markdown = "^3.1"
-jinja2 = "^2.10"
+Jinja2 = "^3.1.2"
+Markdown = "^3.4.1"
+frontmatter = "^3.0.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
