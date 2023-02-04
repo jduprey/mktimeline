@@ -9,6 +9,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, PackageLoader, select_autoescape
 
 import importlib.resources as pkg_resources
+from yaml import Loader
 
 from .. import templates
 
@@ -53,7 +54,7 @@ class Project:
             raise Exception("Missing project data.")
 
         with open(self.project_file) as r:
-            self.project_data = yaml.load(r)
+            self.project_data = yaml.load(r, Loader=Loader)
 
         self.timeline = self.export()
 
