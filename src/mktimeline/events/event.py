@@ -2,7 +2,7 @@ import json
 
 import markdown
 from bs4 import BeautifulSoup
-from frontmatter import Frontmatter
+import frontmatter
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -29,11 +29,11 @@ class Event:
 
     def to_event(self):
         with open(self.mdfile, encoding="utf-8-sig") as f:
-            post = Frontmatter.read(f.read())
-        if len(post["body"]) == 0 or len(post["frontmatter"]) == 0:
+            metadata, content = frontmatter.parse(f.read())
+        if len(content) == 0 or len(metadata.keys()) == 0:
             raise Exception("Error reading {} or incorrect format.".format(self.mdfile))
 
-        soup = BeautifulSoup(markdown.markdown(post["body"]), "html.parser")
+        soup = BeautifulSoup(markdown.markdown(content), "html.parser")
 
         first_element = soup.find()
         try:
@@ -50,7 +50,7 @@ class Event:
             )
 
         first_element.extract()
-        event = post["attributes"]
+        event = metadata
         caption_elt = BeautifulSoup(
             markdown.markdown(event["media"]["caption"]), "html.parser"
         )
