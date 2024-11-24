@@ -1,20 +1,32 @@
 import json
 
 from cleo.commands.command import Command
+from cleo.helpers import argument, option
 
 from ...timeline import Project
 
 
 class BuildCommand(Command):
-    """
-    Render timeline project to output directory using the specified template.
-
-    build
-        {file? : File to write the timeline to.}
-        {--stdout : Write to standard output instead of file.}
-    """
-
     name = "build"
+    description = (
+        "Render timeline project to output directory using the specified template."
+    )
+    arguments = [
+        argument(
+            "file",
+            description="File to write the timeline to.",
+            optional=True,
+            default=None,
+        )
+    ]
+    options = [
+        option(
+            "--stdout",
+            "o",
+            description="Write to standard output instead of file.",
+            flag=True,
+        )
+    ]
 
     def handle(self):
         output = self.argument("file")
@@ -32,6 +44,4 @@ class BuildCommand(Command):
         else:
             self.line("""<info>Export to {}</>""".format(output))
             with open(output, "w") as outfile:
-                outfile.write(render)
-
                 outfile.write(render)
