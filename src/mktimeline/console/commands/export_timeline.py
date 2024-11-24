@@ -1,5 +1,7 @@
 import json
-from cleo import Command
+
+from cleo.commands.command import Command
+
 from ...timeline import Project
 
 
@@ -9,8 +11,10 @@ class ExportTimelineCommand(Command):
 
     export
         {jsonfile? : JSON file to write to.}
-        {--stdout : Write to standard output instead of file.}    
+        {--stdout : Write to standard output instead of file.}
     """
+
+    name = "export-timeline"
 
     def handle(self):
         jsonfile = self.argument("jsonfile")
@@ -29,3 +33,4 @@ class ExportTimelineCommand(Command):
             with open(jsonfile, "w") as outfile:
                 print(json.dump(timeline, outfile, indent=4))
 
+                print(json.dump(timeline, outfile, indent=4))

@@ -1,5 +1,6 @@
 import os
-from cleo import Command
+
+from cleo.commands.command import Command
 
 
 class InitCommand(Command):
@@ -10,6 +11,8 @@ class InitCommand(Command):
         {dir? : initialize dir as an MKTimeline project}
         {--t|template=template.html : template to use for rending timeline during build. }
     """
+
+    name = "init"
 
     def handle(self):
         dir = os.getcwd()
@@ -28,4 +31,3 @@ class InitCommand(Command):
         from mktimeline.timeline import Project
 
         Project.init(dir, self.option("template"))
-

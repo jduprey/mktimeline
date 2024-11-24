@@ -1,5 +1,7 @@
-from cleo import Command
 import json
+
+from cleo.commands.command import Command
+
 from ...timeline import Project
 
 
@@ -9,8 +11,10 @@ class BuildCommand(Command):
 
     build
         {file? : File to write the timeline to.}
-        {--stdout : Write to standard output instead of file.}    
+        {--stdout : Write to standard output instead of file.}
     """
+
+    name = "build"
 
     def handle(self):
         output = self.argument("file")
@@ -30,3 +34,4 @@ class BuildCommand(Command):
             with open(output, "w") as outfile:
                 outfile.write(render)
 
+                outfile.write(render)

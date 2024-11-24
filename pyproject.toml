@@ -1,43 +1,32 @@
-[tool.poetry]
+[project]
 name = "mktimeline"
-version = "0.1.3"
-description = ""
-authors = ["John Duprey <297628+jduprey@users.noreply.github.com>"]
-license = "MIT"
+version = "0.1.4"
+description = "Make a timeline from markdown files."
 readme = "README.md"
-
+authors = [
+    { name = "John Duprey", email = "297628+jduprey@users.noreply.github.com" },
+]
+keywords = ["timeline", "edit", "author"]
 homepage = "https://github.com/jduprey/mktimeline"
 repository = "https://github.com/jduprey/mktimeline"
 documentation = "https://github.com/jduprey/mktimeline/blob/master/README.md"
 
-keywords = ["timeline", "edit", "author"]
+requires-python = ">=3.12"
 
-# https://pypi.org/pypi?%3Aaction=list_classifiers
-classifiers = [
-    "Topic :: Utilities",
-    "Topic :: Text Processing :: Markup",
-    "License :: OSI Approved :: MIT License",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Development Status :: 4 - Beta"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "cleo>=2.1.0",
+    "jinja2>=3.1.4",
+    "markdown>=3.7",
+    "python-frontmatter>=1.1.0",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8.1"
-cleo = "^0.8.1"
-Jinja2 = "^3.1.2"
-Markdown = "^3.4.1"
-beautifulsoup4 = "^4.11.2"
-python-frontmatter = "^1.0.0"
+[dependency-groups]
+dev = ["pytest>=8.3.3", "ruff>=0.8.0"]
 
-[tool.poetry.dev-dependencies]
-pytest = "^7.2.1"
-flake8 = "^6.0.0"
-black = "^23.1.0"
-
-
-[tool.poetry.scripts]
+[project.scripts]
 mktimeline = "mktimeline.console.application:main"
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

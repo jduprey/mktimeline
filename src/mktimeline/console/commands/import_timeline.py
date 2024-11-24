@@ -1,6 +1,6 @@
-from cleo import Command
-from mktimeline.timeline.project import Project
+from cleo.commands.command import Command
 
+from mktimeline.timeline.project import Project
 
 
 class ImportTimelineCommand(Command):
@@ -8,8 +8,10 @@ class ImportTimelineCommand(Command):
     Import timline from Knightlab timeline JSON file format - https://timeline.knightlab.com/.
 
     import
-        {jsonfile : JSON file that follows Knightlab timeline JSON file format - https://timeline.knightlab.com/}    
+        {jsonfile : JSON file that follows Knightlab timeline JSON file format - https://timeline.knightlab.com/}
     """
+
+    name = "import-timeline"
 
     def handle(self):
         jsonfile = self.argument("jsonfile")
@@ -20,8 +22,3 @@ class ImportTimelineCommand(Command):
 
         project = Project()
         project.import_(timeline)
-        
-
-        
-
-

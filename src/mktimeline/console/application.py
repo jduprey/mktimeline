@@ -3,7 +3,7 @@ from .commands import ImportTimelineCommand
 from .commands import ExportTimelineCommand
 from .commands import BuildCommand
 from .commands import InitCommand
-from cleo import Application
+from cleo.application import Application
 
 
 def main():
