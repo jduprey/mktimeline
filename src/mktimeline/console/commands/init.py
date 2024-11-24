@@ -1,18 +1,30 @@
 import os
 
 from cleo.commands.command import Command
+from cleo.helpers import argument, option
 
 
 class InitCommand(Command):
     """
     Initiatlize an MKTimeline project.
-
-    init
-        {dir? : initialize dir as an MKTimeline project}
-        {--t|template=template.html : template to use for rending timeline during build. }
     """
 
     name = "init"
+    description = "Initiatlize an MKTimeline project."
+    arguments = [
+        argument(
+            "dir", description="Initialize dir as an MKTimeline project.", optional=True
+        )
+    ]
+    options = [
+        option(
+            "template",
+            "t",
+            description="The template to use for rending timeline during build.",
+            default="template.html",
+            flag=False,
+        )
+    ]
 
     def handle(self):
         dir = os.getcwd()
