@@ -106,3 +106,4 @@ venv.bak/
 # local files
 tmp/**
 .vscode
+tests/test-data/timeline3.json

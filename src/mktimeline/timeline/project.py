@@ -158,3 +158,6 @@ class Project:
         # Generate the HTML from the template
         template = env.get_template(self.project_data["template"])
         return template.render(self.timeline)
+
+    def import_data(self, data):
+        self.timeline = data
