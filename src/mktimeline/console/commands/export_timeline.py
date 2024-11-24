@@ -1,20 +1,30 @@
 import json
 
 from cleo.commands.command import Command
+from cleo.helpers import argument, option
 
 from ...timeline import Project
 
 
 class ExportTimelineCommand(Command):
-    """
-    Export timline project to Knightlab timeline JSON file format - https://timeline.knightlab.com/.
-
-    export
-        {jsonfile? : JSON file to write to.}
-        {--stdout : Write to standard output instead of file.}
-    """
-
     name = "export-timeline"
+    description = "Export timeline project to Knightlab timeline JSON file format - https://timeline.knightlab.com."
+    arguments = [
+        argument(
+            "jsonfile",
+            description="JSON file to write to.",
+            default=None,
+            optional=True,
+        )
+    ]
+    options = [
+        option(
+            "--stdout",
+            "o",
+            description="Write to standard output instead of file.",
+            flag=True,
+        )
+    ]
 
     def handle(self):
         jsonfile = self.argument("jsonfile")
@@ -31,6 +41,4 @@ class ExportTimelineCommand(Command):
         else:
             self.line("""<info>Export to {}</>""".format(jsonfile))
             with open(jsonfile, "w") as outfile:
-                print(json.dump(timeline, outfile, indent=4))
-
-                print(json.dump(timeline, outfile, indent=4))
+                json.dump(timeline, outfile, indent=4)

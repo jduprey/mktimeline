@@ -1,17 +1,21 @@
+import json
+
 from cleo.commands.command import Command
+from cleo.helpers import argument
 
 from mktimeline.timeline.project import Project
 
 
 class ImportTimelineCommand(Command):
-    """
-    Import timline from Knightlab timeline JSON file format - https://timeline.knightlab.com/.
-
-    import
-        {jsonfile : JSON file that follows Knightlab timeline JSON file format - https://timeline.knightlab.com/}
-    """
-
     name = "import-timeline"
+    description = "NOT IMPLEMENTED YET - Import timeline from Knightlab timeline JSON file format - https://timeline.knightlab.com/."
+
+    arguments = [
+        argument(
+            "jsonfile",
+            description="JSON file that follows Knightlab timeline JSON file format - https://timeline.knightlab.com/",
+        )
+    ]
 
     def handle(self):
         jsonfile = self.argument("jsonfile")
@@ -21,4 +25,4 @@ class ImportTimelineCommand(Command):
             timeline = json.load(r)
 
         project = Project()
-        project.import_(timeline)
+        project.import_data(timeline)
