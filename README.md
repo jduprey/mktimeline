@@ -1,3 +1,11 @@
+[![Build](https://github.com/jduprey/mktimeline/actions/workflows/code-quality.yml/badge.svg)](https://github.com/jduprey/mktimeline/actions/workflows/code-quality.yml)
+![PyPI](https://img.shields.io/pypi/v/mktimeline)
+
+<!-- ![Version](https://img.shields.io/github/v/release/jduprey/mktimeline) -->
+
+
+![License](https://img.shields.io/github/license/jduprey/mktimeline) ![Issues](https://img.shields.io/github/issues/jduprey/mktimeline) ![Contributors](https://img.shields.io/github/contributors/jduprey/mktimeline) ![Forks](https://img.shields.io/github/forks/jduprey/mktimeline) ![Stars](https://img.shields.io/github/stars/jduprey/mktimeline) 
+
 # MKTimeline - a static site generator for interactive/visual timelines
 
 > A tool for creating interactive/visual timelines in markdown. 
