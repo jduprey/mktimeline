@@ -4,7 +4,6 @@ from mktimeline import __version__
 
 
 class AboutCommand(Command):
-
     name = "about"
 
     description = "Shows information about mktimeline."

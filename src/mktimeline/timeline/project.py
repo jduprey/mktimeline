@@ -129,9 +129,7 @@ class Project:
 
         # Make sure events are sorted by start date
         events.sort(
-            key=lambda event: "{0[year]}-{0[month]}-{0[day]}".format(
-                defaultdict(str, **(ev["start_date"]))
-            ),
+            key=lambda event: "{0[year]}-{0[month]}-{0[day]}".format(defaultdict(str, **(ev["start_date"]))),
             reverse=False,
         )
 
@@ -149,19 +147,13 @@ class Project:
 
         # Make sure events are sorted by start date
         self.timeline["events"].sort(
-            key=lambda event: "{0[year]}-{0[month]}-{0[day]}".format(
-                defaultdict(str, **(event["start_date"]))
-            ),
+            key=lambda event: "{0[year]}-{0[month]}-{0[day]}".format(defaultdict(str, **(event["start_date"]))),
             reverse=False,
         )
 
         # Convert media youtube URLs to embed urls...
         for ev in self.timeline["events"]:
-            if (
-                "media" in ev
-                and "url" in ev["media"]
-                and ev["media"]["url"].find("//youtu") != -1
-            ):
+            if "media" in ev and "url" in ev["media"] and ev["media"]["url"].find("//youtu") != -1:
                 ev["media"]["url"] = re.sub(
                     r".*\/(.*)$",
                     r"https://youtube.com/embed/\1?rel=0",

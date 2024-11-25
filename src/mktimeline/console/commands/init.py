@@ -11,11 +11,7 @@ class InitCommand(Command):
 
     name = "init"
     description = "Initiatlize an MKTimeline project."
-    arguments = [
-        argument(
-            "dir", description="Initialize dir as an MKTimeline project.", optional=True
-        )
-    ]
+    arguments = [argument("dir", description="Initialize dir as an MKTimeline project.", optional=True)]
     options = [
         option(
             "template",
@@ -30,15 +26,9 @@ class InitCommand(Command):
         dir = os.getcwd()
         if self.argument("dir"):
             dir = self.argument("dir")
-        if not self.confirm(
-            """Create a timeline project in directory "{}"?""".format(dir), False
-        ):
+        if not self.confirm("""Create a timeline project in directory "{}"?""".format(dir), False):
             return
-        self.line(
-            """<info>Initializing MKTimeline project in directory "{}".</info>""".format(
-                dir
-            )
-        )
+        self.line("""<info>Initializing MKTimeline project in directory "{}".</info>""".format(dir))
 
         from mktimeline.timeline import Project
 

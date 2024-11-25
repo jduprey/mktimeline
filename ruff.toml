@@ -47,9 +47,4 @@ line-ending = "auto"
 docstring-code-format = true
 docstring-code-line-length = "dynamic"
 
-[isort]
-profile = "black"
-line_length = 120
-known_third_party = ["numpy", "pandas"]
-
 

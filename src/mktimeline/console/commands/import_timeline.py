@@ -27,7 +27,4 @@ class ImportTimelineCommand(Command):
         project = Project()
         project.import_data(timeline)
 
-        self.line(
-            f"<info>Timeline imported with {len(project.timeline['events'])}"
-            " events</info>"
-        )
+        self.line(f"<info>Timeline imported with {len(project.timeline['events'])}" " events</info>")

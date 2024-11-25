@@ -1,4 +1,3 @@
-
 from cleo.commands.command import Command
 from cleo.helpers import argument, option
 
@@ -7,9 +6,7 @@ from ...timeline import Project
 
 class BuildCommand(Command):
     name = "build"
-    description = (
-        "Render timeline project to output directory using the specified template."
-    )
+    description = "Render timeline project to output directory using the specified template."
     arguments = [
         argument(
             "file",

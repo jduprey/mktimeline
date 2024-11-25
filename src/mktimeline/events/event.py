@@ -37,20 +37,14 @@ class Event:
         """
         if "content" not in self.event_data:
             if "text" in self.event_data:
-                self.event_data[
-                    "content"
-                ] = f"""# {self.event_data["text"]["headline"]}
+                self.event_data["content"] = f"""# {self.event_data["text"]["headline"]}
 {self.event_data["text"]["text"]}"""
 
     def write_markdown(self):
         """
         Writes a timeline event to a markdown file
         """
-        metadata = {
-            key: value
-            for key, value in self.event_data.items()
-            if key != "text" and key != "content"
-        }
+        metadata = {key: value for key, value in self.event_data.items() if key != "text" and key != "content"}
         post = frontmatter.Post(self.event_data["content"], **metadata)
         with open(self.mdfile, "w") as f:
             f.write(frontmatter.dumps(post))
@@ -66,11 +60,7 @@ class Event:
         first_element = soup.find()
         try:
             if first_element.name != "h1":
-                raise Exception(
-                    'Expected first element to be an "H1" instead it was {}'.format(
-                        first_element.name
-                    )
-                )
+                raise Exception('Expected first element to be an "H1" instead it was {}'.format(first_element.name))
         except Exception as e:
             raise Exception(
                 "Failed to parse heading from first element: {}".format(first_element),
@@ -79,12 +69,8 @@ class Event:
 
         first_element.extract()
         event = metadata
-        caption_elt = BeautifulSoup(
-            markdown.markdown(event["media"]["caption"]), "html.parser"
-        )
-        credit_elt = BeautifulSoup(
-            markdown.markdown(event["media"]["credit"]), "html.parser"
-        )
+        caption_elt = BeautifulSoup(markdown.markdown(event["media"]["caption"]), "html.parser")
+        credit_elt = BeautifulSoup(markdown.markdown(event["media"]["credit"]), "html.parser")
         event["media"]["caption"] = self.get_inner_html(caption_elt.p)
         event["media"]["credit"] = self.get_inner_html(credit_elt.p)
         event["text"] = {"headline": first_element.text, "text": str(soup)}

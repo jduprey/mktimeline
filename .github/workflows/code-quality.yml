@@ -1,0 +1,55 @@
+# Seeded from: https://github.com/timvancann/yt-python-ci/blob/main/.github/workflows/code-quality.yml
+name: Python Code Quality
+on: [push]
+jobs:
+  lock_file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3      
+      - run: uv lock --locked
+  linting:
+    runs-on: ubuntu-latest
+    needs: [lock_file]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - run: uvx ruff check .
+  formatting:
+    runs-on: ubuntu-latest
+    needs: [lock_file]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - run: uvx ruff format --check .
+  type_consistency:
+    runs-on: ubuntu-latest
+    needs: [lock_file]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - run: echo uv run pyright .
+  tests:
+    runs-on: ubuntu-latest
+    needs: [lock_file]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - run: uv run pytest -v --durations=0 --cov --cov-report=xml
+    #   - name: Upload Coverage to Codecov
+    #     uses: codecov/codecov-action@v4
+    #     with:
+    #       token: ${{ secrets.CODECOV_TOKEN }}  
+  build:
+    runs-on: [ubuntu-latest]
+    needs: [linting, formatting, type_consistency, tests]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - run: uv run python -m build

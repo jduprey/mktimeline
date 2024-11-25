@@ -24,3 +24,14 @@ uvx run mktimeilne
 - ✅ ...
 - ✅ 
 - ✅ 
+
+## Develop
+
+Use `act` to run workflows locally.
+
+```bash
+gh extension install https://github.com/nektos/gh-act
+```
+
+Config: `~/.config/act/actrc`
+
