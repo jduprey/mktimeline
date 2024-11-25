@@ -1,18 +1,14 @@
-import json
-import shutil
-import yaml
 import os
 import re
+import shutil
 from collections import defaultdict
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader, PackageLoader, select_autoescape
-
-import importlib.resources as pkg_resources
+import yaml
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from yaml import Loader
 
 from .. import templates
-
 from ..events import Event
 
 # https://stackoverflow.com/questions/6028000/how-to-read-a-static-file-from-inside-a-python-package
@@ -92,6 +88,29 @@ class Project:
             ignore=shutil.ignore_patterns("*.py", "*.pyc", "__py*"),
         )
 
+    def save(self):
+        events_dir = os.path.join(self.project_dir, "events")
+        title_ev = Event("title.md")
+        title_ev.event_data = self.timeline["title"]
+        title_ev.build_markdown_content()
+
+        title_ev.write_markdown()
+
+        for ev in self.timeline["events"]:
+            ev_path = f"{ev['start_date']['year']}-{ev['start_date'].get('month', '')}-{ev['start_date'].get('day', '')}_{ev['text']['headline'].lower().replace(' ', '_')}"
+            ev_dir = os.path.join(
+                events_dir,
+                ev_path,
+            )
+            if not os.path.exists(ev_dir):
+                os.makedirs(ev_dir)
+
+            ev_fname = os.path.join(ev_dir, f"{ev_path}.md")
+            ev_md = Event(ev_fname)
+            ev_md.event_data = ev
+            ev_md.build_markdown_content()
+            ev_md.write_markdown()
+
     def export(self):
         ev = Event("title.md")
         title = ev.to_event()
@@ -161,3 +180,4 @@ class Project:
 
     def import_data(self, data):
         self.timeline = data
+        self.save()

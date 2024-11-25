@@ -1,8 +1,9 @@
 import json
+import os
 
+import frontmatter
 import markdown
 from bs4 import BeautifulSoup
-import frontmatter
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -12,6 +13,9 @@ class Event:
 
     def __init__(self, mdfile):
         self.mdfile = mdfile
+        self.event_data = {}
+        if os.path.exists(self.mdfile):
+            self.event_data = self.to_event()
 
     def md2json(self):
         """
@@ -26,6 +30,30 @@ class Event:
             return ""
 
         return "".join([str(x) for x in elt.contents])
+
+    def build_markdown_content(self):
+        """
+        Builds the markdown content from the event data
+        """
+        if "content" not in self.event_data:
+            if "text" in self.event_data:
+                self.event_data[
+                    "content"
+                ] = f"""# {self.event_data["text"]["headline"]}
+{self.event_data["text"]["text"]}"""
+
+    def write_markdown(self):
+        """
+        Writes a timeline event to a markdown file
+        """
+        metadata = {
+            key: value
+            for key, value in self.event_data.items()
+            if key != "text" and key != "content"
+        }
+        post = frontmatter.Post(self.event_data["content"], **metadata)
+        with open(self.mdfile, "w") as f:
+            f.write(frontmatter.dumps(post))
 
     def to_event(self):
         with open(self.mdfile, encoding="utf-8-sig") as f:
@@ -60,4 +88,5 @@ class Event:
         event["media"]["caption"] = self.get_inner_html(caption_elt.p)
         event["media"]["credit"] = self.get_inner_html(credit_elt.p)
         event["text"] = {"headline": first_element.text, "text": str(soup)}
+        event["content"] = content
         return event
