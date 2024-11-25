@@ -1,6 +1,26 @@
 # MKTimeline - a static site generator for interactive/visual timelines
-A tool for creating interactive/visual timelines.
 
-This tool is under development and is considered BETA.
-As you can see, there is no documentation yet.
-Use at your own risk and befuddlement.
+> A tool for creating interactive/visual timelines in markdown. 
+
+## `> ` &nbsp;Get it Today
+
+Recommended installation is with `pipx`:
+
+```
+pipx install mktimeline
+```
+
+Or through `uv`:
+
+```
+uvx run mktimeilne
+```
+
+## 📋 Features
+
+- ✅ Simply python command line interface
+- ✅ Extensible templates with Jinja2
+- ✅ Out-of-the-box support for KnightLabs' Timeline visualization (with ability to import and export the KnightLab JSON format.)
+- ✅ ...
+- ✅ 
+- ✅ 
