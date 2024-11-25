@@ -35,3 +35,8 @@ gh extension install https://github.com/nektos/gh-act
 
 Config: `~/.config/act/actrc`
 
+### Build
+
+```bash
+gh act -j build
+```
